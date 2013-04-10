@@ -1,0 +1,21 @@
+#!/usr/bin/php
+<?php
+	$file = file_get_contents( $argv[1] );
+	$file = str_replace( 'public', 'UGLY_PUBLIC', $file );
+	$file = str_replace( 'protected', 'UGLY_PROTECTED', $file );
+	$file = str_replace( 'var UGLY_PUBLIC', 'UGLY_PUBLIC', $file );
+
+	$path = getcwd() . '/.tmp';
+	$path2 = getcwd() . '/.tmp2';
+	file_put_contents( $path, $file );
+	
+	exec( $argv[2] . $path . ' > ' . $path2 );
+	$file = file_get_contents( $path2 );
+	unlink( $path );
+	unlink( $path2 );
+	
+	$file = preg_replace( '#UGLY_PUBLIC={}(;|,)UGLY_PROTECTED={}(;|,)parent={}#', 'var public={},protected={},parent={}', $file );
+	$file = str_replace( 'UGLY_PUBLIC', 'public', $file );
+	$file = str_replace( 'UGLY_PROTECTED', 'protected', $file );
+
+	file_put_contents( 'Class.min.js', $file );

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>ClassyJS Demo</title>
+		<script type="text/javascript" src="js/Class.min.js"></script>
+		<script type="text/javascript" src="js/demo.js"></script>
+	</head>
+	<body>
+		<h1>ClassyJS Object Oriented programming</h1>
+		<h2>Class definition</h2>
+		<pre>var Person = Object.extend(function(){
+	
+	var _name;
+	var _gender;
+	
+	protected.setName = function( name ){
+		_name = name;
+	};
+	
+	protected.setGender = function( gender ){
+		_gender = gender;
+	};
+	
+	public.getName = function(){
+		return _name;
+	};
+	
+	public.getGender = function(){
+		return _gender;
+	};
+	
+	public.construct = function( name, gender ){
+		_name = name;
+		_gender = gender;
+	};
+	
+});
+
+var Employee = Person.extend(function(){
+	
+	// Import other libraries.
+	var Project = Data.Project;
+	
+	var _position;
+	var _project;
+	
+	public.setPosition = function( position ){
+		_position = position;
+	};
+	
+	public.getPosition = function(){
+		return _position;
+	};
+	
+	public.construct = function( name, gender, position ) {
+		parent.construct( name, gender );
+		
+		_position = position;
+		_project = new Project();
+		_project.setName( 'TestProject' );
+	};
+	
+	public.getCurrentProject = function(){
+		return _project;
+	};
+	
+});
+
+var Data = {};
+
+Data.Project = Object.extend(function(){
+	
+	var _name = "Default";
+	
+	public.getName = function(){
+		return _name;
+	};
+	
+	public.setName = function( name ){
+		_name = name;
+	};
+	
+});</pre>
+		<h2>Demo1: Inheritance</h2>
+		<h3>Code:</h3>
+		<pre>var Developer = new Employee( 'Frank Foe', 'Male', 'Developer' );
+var Designer = new Employee( 'Stefan Hellings', 'Male', 'Designer' );
+var Client = new Person( 'John Doe', 'Male' );</pre>
+		<h3>Result:</h3>
+		<pre id="demo1"></pre>
+		
+		<h2>Demo2: Super functions.</h2>
+		<h3>Code:</h3>
+		<pre>var Developer = new Employee( 'Frank Foe', 'Male', 'Developer' );
+var Client = new Person( 'John Doe', 'Male' );</pre>
+		
+		<h3>Result:</h3>
+		<pre id="demo2"></pre>
+		
+		<h2>Demo3: Imports.</h2>
+		<h3>Code:</h3>
+		<pre>var Developer = new Employee( 'Frank Foe', 'Male', 'Developer' );</pre>
+		
+		<h3>Result:</h3>
+		<pre id="demo3"></pre>
+	</body>
+	
+	
+
+</html>
